@@ -1,0 +1,15 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<ul>
+{% for video in videos %}
+<li>
+    <img src="{{ video.thumbnail }}" alt="">
+  <p><a href="{% url 'video:bookmark_detail' pk=video.pk %} ">Title : {{ video.title }}</a></p>
+  <p>Description : {{ video.description }}</p>
+  <p>Published_Date : {{ video.published_date}}</p>
+
+</li>
+</ul>
+{% endfor %}
+{% endblock %}

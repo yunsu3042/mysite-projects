@@ -1,0 +1,69 @@
+{% extends 'common/base.html' %}
+{% load app_filters %}
+{% load humanize %}
+
+{% block content %}
+<h5> {{ keyword }}로 검색 총 {{ response.totalResults|intcomma }}</h5>
+	<form action="">
+		<input type="text" name="keyword" placeholder="{{ keyword }}">
+		<button type="submit">검색</button>
+	</form>
+
+		{% for item in response.items %}
+	<ul>
+		<div class="row custom-row" >
+		<li>
+			<iframe class="col-md-4" width="380" height="250" src="https://www.youtube.com/embed/{{ item.id }}" frameborder="0"></iframe>
+			<p class="col-md-8">title : {{ item.snippet.title }}</p>
+			<p class="col-md-8">description : {{ item.snippet.description }}</p>
+			<p class="col-md-8">Published_Date : {{ item.snippet.publishedAt }}</p>
+			<p class="col-md-8">ViewCount : {{ item.statistics.viewCount|intcomma }}</p>
+			<p class="col-md-8">likeCount : {{ item.statistics.likeCount|intcomma }}</p>
+			<p class="col-md-8">dislikeCount : {{ item.statistics.dislikeCount|intcomma }}</p>
+			<p class="col-md-8">commentCount : {{ item.statistics.commentCount|intcomma }}</p>
+			<div>
+				{% for tag in item.snippet.tags|slice:":5" %}
+				<span><button class="btn btn-primary" >{{ tag }}</button></span>
+				{% endfor %}
+			</div>
+			{% if item.is_exist %}
+			<button>Already added</button>
+			{% else %}
+			<form action="{% url 'video:bookmark_add' %}" method="POST">{% csrf_token %}
+				<input type="hidden" name="kind" value="{{ item.kind }}">
+				<input type="hidden" name="videoId" value="{{ item.id }}">
+				<input type="hidden" name="title" value="{{ item.snippet.title }}">
+				<input type="hidden" name="description" value="{{ item.snippet.description }}">
+				<input type="hidden" name="publishedAt" value="{{ item.snippet.publishedAt }}">
+				<input type="hidden" name="thumbnail_url" value="{{ item.snippet.thumbnails.high.url }}">
+				<input type="hidden" name="path" value="{{ request.get_full_path }}">
+				<button type="submit">북마크 추가하기</button>
+			</form>
+			{% endif %}
+		</li>
+		</ul>
+</div>
+		{% endfor %}
+
+
+		{% if response.prevPageToken %}
+		<a href="{% url 'video:search' %}?keyword={{ keyword }}&page_token={{ response.prevPageToken }}">이전페이지</a>
+		{% endif %}
+
+		<!--
+			첫 페이지로 가기 버튼 만들어보세요
+				(첫 페이지에선 나오면 안 됩니다)
+		-->
+		{% if response.prevPageToken %}
+		<a href="{% url 'video:search' %}?keyword={{ keyword }}">첫 페이지로 가기</a>
+		{% endif %}
+
+
+		{% if response.nextPageToken %}
+		<a href="{% url 'video:search' %}?keyword={{ keyword }}&page_token={{ response.nextPageToken }}">다음페이지</a>
+		{% endif %}
+
+</body>
+</html>
+
+{% endblock %}
