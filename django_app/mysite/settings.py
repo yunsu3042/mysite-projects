@@ -22,32 +22,32 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 #설정파일 폴더
 CONF_DIR = os.path.join(BASE_DIR,'.conf')
+
 #json 설정파일의 내용 불러오기
 config_file = open(os.path.join(CONF_DIR,'settings_debug.json'))
 config = json.load(config_file.read())
 config_file.close()
 
-# Static files
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
+
+
+# Email
+email_config = config['email']
+EMAIL_HOST = email_config['email']
+EMAIL_PORT = email_config['EMAIL_HOST']
+EMAIL_HOST_USER = email_config['EMAIL_PORT']
+EMAIL_HOST_PASSWORD = email_config['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = email_config['EMAIL_USER_TLS']
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# AUTH_USER_MODEL = 'django.contrib.auth.models.User'
+
+
 
 AUTH_USER_MODEL = 'member.MyUser'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'member.backends.FacebookBackend',
 ]
-
-# Email
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'yunsoo3042@gmail.com'
-EMAIL_HOST_PASSWORD = 'wjddbstn123'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-# AUTH_USER_MODEL = 'django.contrib.auth.models.User'
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -146,9 +146,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -161,3 +161,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Static files
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+
