@@ -25,16 +25,16 @@ CONF_DIR = os.path.join(BASE_DIR,'.conf')
 
 #json 설정파일의 내용 불러오기
 config_file = open(os.path.join(CONF_DIR,'settings_debug.json'))
-config = json.load(config_file.read())
+config = json.loads(config_file.read())
 config_file.close()
 
 
 
 # Email
 email_config = config['email']
-EMAIL_HOST = email_config['email']
-EMAIL_PORT = email_config['EMAIL_HOST']
-EMAIL_HOST_USER = email_config['EMAIL_PORT']
+EMAIL_HOST = email_config['EMAIL_HOST']
+EMAIL_PORT = email_config['EMAIL_PORT']
+EMAIL_HOST_USER = email_config['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = email_config['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = email_config['EMAIL_USER_TLS']
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
