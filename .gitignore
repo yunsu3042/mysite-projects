@@ -1,4 +1,9 @@
+#project custom
+django_app/.idea/
+*.sqlite3
 
+#config folders
+django_app/.conf/
 # Created by https://www.gitignore.io/api/django,node,pycharm,python,node
 
 ### Django ###
