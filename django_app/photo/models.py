@@ -11,7 +11,7 @@ class Album(models.Model):
 
 class Photo(models.Model):
     album = models.ForeignKey(Album)
-    owner = models.ForeignKey()
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=80, blank=True)
-    img = models.ImageField(uplaoad_to='photo')
+    img = models.ImageField(upload_to='photo')
