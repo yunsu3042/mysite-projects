@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,6 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+#설정파일 폴더
+CONF_DIR = os.path.join(BASE_DIR,'.conf')
+#json 설정파일의 내용 불러오기
+config_file = open(os.path.join(CONF_DIR,'settings_debug.json'))
+config = json.load(config_file.read())
+config_file.close()
 
 # Static files
 STATICFILES_DIRS = [
@@ -34,8 +41,8 @@ AUTHENTICATION_BACKENDS = [
 # Email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'fastcampus.2016@gmail.com'
-EMAIL_HOST_PASSWORD = 'fastcampus'
+EMAIL_HOST_USER = 'yunsoo3042@gmail.com'
+EMAIL_HOST_PASSWORD = 'wjddbstn123'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
