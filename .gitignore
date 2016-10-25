@@ -1,5 +1,6 @@
-#project custom
-django_app/.idea/
+#project custum
+.idea/
+/.idea/
 *.sqlite3
 
 #config folders
